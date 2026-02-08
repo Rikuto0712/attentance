@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!-- HTML5 ドキュメントであることを宣言する。 -->
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!-- HTML タグ開始。lang="ja" は日本語ページであることを示す。 -->
+<!-- xmlns:th は Thymeleaf の属性を使うための名前空間宣言。
+-->
+<!-- xmlns:sec は Spring Security 用の拡張属性を使うための名前空間宣言。
+-->
+<head>
+<meta charset="UTF-8">
+<!-- 文字エンコーディングを UTF-8 に設定。
+-->
+<title>社員ダッシュボード - 勤怠管理システム</title>
+<!-- ブラウザタブに表示されるタイトルを設定。
+-->
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<!-- CSS スタイルシートのリンクを設定。
+-->
+<!-- th:href を使うことで Thymeleaf でパスを解決する。 -->
+</head>
+<body>
+<div class="container">
+<!-- 中央寄せのコンテンツを囲む div。
+-->
+<h1>社員ダッシュボード</h1>
+<!-- ページのメインタイトル。 -->
+<p>ようこそ、<span sec:authentication="name"></span>さん！</p>
+<!-- ログイン中のユーザー名を表示する。 -->
+<!-- Spring Security の認証情報を Thymeleaf で表示する方法。
+-->
+<h2>打刻</h2>
+<!-- 打刻ボタン群のタイトル。 -->
+<div class="button-group">
+<!-- ボタンをグループ化するための div。
+-->
+<form th:action="@{/attendance/punch}" method="post" style="display:inline;">
+<!-- 出勤打刻用フォーム。 -->
+<input type="hidden"
+name="type" value="check_in">
+<!-- 隠しフィールドで打刻種別を指定する。 -->
+<button type="submit">出勤</button>
+<!-- 出勤ボタン。 -->
+</form>
+<form th:action="@{/attendance/punch}" method="post" style="display:inline;">
+<!-- 休憩開始打刻用フォーム。 -->
+<input type="hidden"
+name="type" value="break_start">
+<button type="submit">休憩開始</button>
+</form>
+<form th:action="@{/attendance/punch}" method="post" style="display:inline;">
+<!-- 休憩終了打刻用フォーム。 -->
+<input type="hidden"
+name="type" value="break_end">
+<button type="submit">休憩終了</button>
+</form>
+<form th:action="@{/attendance/punch}" method="post" style="display:inline;">
+<!-- 退勤打刻用フォーム。 -->
+<input type="hidden"
+name="type" value="check_out">
+<button type="submit">退勤</button>
+</form>
+</div>
+<h2>あなたの勤怠履歴</h2>
+<!-- 勤怠履歴のテーブルのタイトル。 -->
+<table>
+<thead>
+<tr>
+<th>日付</th>
+<th>出勤</th>
+<th>退勤</th>
+<th>休憩開始</th>
+<th>休憩終了</th>
+<th>場所</th>
+<th>ステータス</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="record : ${attendanceRecords}">
+<!-- 勤怠レコードのリストを繰り返し表示する。 -->
+<td th:text="${record.recordDate}"></td>
+<!-- 勤怠の日付を表示する。 -->
+<td th:text="${record.checkInTime}"></td>
+<!-- 出勤時刻を表示する。 -->
+<td th:text="${record.checkOutTime}"></td>
+<!-- 退勤時刻を表示する。 -->
+<td th:text="${record.breakStartTime}"></td>
+<!-- 休憩開始時刻を表示する。 -->
+<td th:text="${record.breakEndTime}"></td>
+<!-- 休憩終了時刻を表示する。 -->
+<td th:text="${record.location}"></td>
+<!-- 勤務場所を表示する。 -->
+<td th:text="${record.status}"></td>
+<!-- 勤怠ステータスを表示する。 -->
+</tr>
+<tr th:if="${#lists.isEmpty(attendanceRecords)}">
+<!-- 勤怠記録が 0 件の場合に表示する行。
+-->
+<td colspan="7">勤怠記録がありません。</td>
+</tr>
+</tbody>
+</table>
+<!-- ===================== -->
+<!-- 申請メニュー -->
+<!-- ===================== -->
+<h2>申請</h2>
+
+<div class="button-group">
+
+    <!-- 残業申請 -->
+    <a th:href="@{/overtime/apply}">
+        <button type="button">残業申請</button>
+    </a>
+
+    <!-- 有給申請 -->
+    <a th:href="@{/leave/apply}">
+        <button type="button">有給申請</button>
+    </a>
+
+</div>
+
+<div class="button-group">
+<!-- ボタンをまとめる div。
+-->
+<a th:href="@{/attendance/history}" class="button secondary">勤怠履歴詳細</a>
+<!-- 勤怠履歴詳細画面へのリンクボタン。 -->
+<form th:action="@{/logout}" method="post" style="display:inline;">
+<!-- ログアウト用フォーム。 -->
+<button type="submit" class="button secondary">ログアウト</button>
+</form>
+</div>
+</div>
+</body>
+</html>

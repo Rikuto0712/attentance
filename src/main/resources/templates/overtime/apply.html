@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>残業申請</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+}
+
+.container {
+    max-width: 500px;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>残業申請</h2>
+
+    <form th:action="@{/overtime/apply}" 
+          th:object="${overtimeRequest}" 
+          method="post">
+
+        <label>残業日</label>
+        <input type="date" th:field="*{overtimeDate}" required>
+
+        <label>開始時間</label>
+        <input type="time" th:field="*{startTime}" required>
+
+        <label>終了時間</label>
+        <input type="time" th:field="*{endTime}" required>
+
+        <label>理由</label>
+        <textarea th:field="*{reason}"></textarea>
+
+        <button type="submit">申請する</button>
+    </form>
+
+    <br>
+    <a href="/dashboard">戻る</a>
+</div>
+
+</body>
+</html>

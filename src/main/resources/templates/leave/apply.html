@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>有給申請</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+}
+
+.container {
+    max-width: 500px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>有給申請</h2>
+
+    <form th:action="@{/leave/apply}" 
+          th:object="${leaveRequest}" 
+          method="post">
+
+        <label>開始日</label>
+        <input type="date" th:field="*{startDate}" required>
+
+        <label>終了日</label>
+        <input type="date" th:field="*{endDate}" required>
+
+        <label>理由</label>
+        <textarea th:field="*{reason}"></textarea>
+
+        <button type="submit">申請する</button>
+    </form>
+
+    <br>
+    <a href="/dashboard">戻る</a>
+</div>
+
+</body>
+</html>

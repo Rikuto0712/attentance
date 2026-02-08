@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!-- HTML5 ドキュメントであることを宣言する。 -->
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!-- HTML タグ開始。lang="ja" は日本語ページであることを示す。 -->
+<!-- xmlns:th は Thymeleaf の属性を使うための名前空間宣言。
+-->
+<!-- xmlns:sec は Spring Security 用の拡張属性を使うための名前空間宣言。
+-->
+<head>
+<meta charset="UTF-8">
+<!-- 文字エンコーディングを UTF-8 に設定。
+-->
+<title>管理者ダッシュボード - 勤怠管理システム</title>
+<!-- ブラウザタブに表示されるタイトルを設定。
+-->
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<!-- CSS スタイルシートのリンクを設定。
+-->
+<!-- th:href を使うことで Thymeleaf でパスを解決する。 -->
+</head>
+<body>
+<div class="container">
+<!-- コンテンツを中央寄せで囲む div。
+-->
+<h1>管理者ダッシュボード</h1>
+<!-- ページのメインタイトル。 -->
+<p>ようこそ、<span sec:authentication="name"></span>さん！ (管理者)</p>
+<!-- ログイン中のユーザー名を表示する。 -->
+<!-- Spring Security の認証情報を Thymeleaf で表示する。 -->
+<div class="main-nav">
+<!-- 管理者用メニューのナビゲーションリンクをまとめる div。
+-->
+<a th:href="@{/admin/attendance}" class="button">勤怠一覧</a>
+<!-- 勤怠一覧画面へのリンク。
+-->
+<a th:href="@{/admin/fix-requests}" class="button">修正依頼承認</a>
+<!-- 修正依頼一覧画面へのリンク。
+-->
+<a th:href="@{/admin/alerts}" class="button">異常検知</a>
+<!-- 異常検知画面へのリンク。
+-->
+<form th:action="@{/logout}" method="post" style="display:inline;">
+<!-- ログアウト用フォーム。 -->
+<button type="submit" class="button secondary">ログアウト</button>
+<!-- ログアウトボタン。 -->
+</form>
+</div>
+<h2>全社員の勤怠状況</h2>
+<!-- 勤怠一覧テーブルのタイトル。 -->
+<table>
+<thead>
+<tr>
+<th>ユーザー名</th>
+<th>日付</th>
+<th>出勤</th>
+<th>退勤</th>
+<th>休憩開始</th>
+<th>休憩終了</th>
+<th>場所</th>
+<th>ステータス</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="record : ${allAttendanceRecords}">
+<!-- 勤怠レコードのリストを繰り返し表示する。 -->
+<td th:text="${record.user.username}"></td>
+<!-- ユーザー名を表示する。 -->
+<td th:text="${record.recordDate}"></td>
+<!-- 勤怠の日付を表示する。 -->
+<td th:text="${record.checkInTime}"></td>
+<!-- 出勤時刻を表示する。 -->
+<td th:text="${record.checkOutTime}"></td>
+<!-- 退勤時刻を表示する。 -->
+<td th:text="${record.breakStartTime}"></td>
+<!-- 休憩開始時刻を表示する。 -->
+<td th:text="${record.breakEndTime}"></td>
+<!-- 休憩終了時刻を表示する。 -->
+<td th:text="${record.location}"></td>
+<!-- 勤務場所を表示する。 -->
+<td th:text="${record.status}"></td>
+<!-- 勤怠ステータスを表示する。 -->
+</tr>
+<tr th:if="${#lists.isEmpty(allAttendanceRecords)}">
+<!-- 勤怠記録が 0 件の場合に表示する行。
+-->
+<td colspan="8">勤怠記録がありません。</td>
+</tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>
+

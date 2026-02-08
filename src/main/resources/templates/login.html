@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- HTML5 ドキュメントであることを宣言する。 -->
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<!-- HTML タグ開始。lang="ja" は日本語であることを示す。 -->
+<!-- xmlns:th は Thymeleaf の属性を使うための名前空間宣言。
+-->
+<head>
+<meta charset="UTF-8">
+<!-- 文字エンコーディングを UTF-8 に設定。
+-->
+<title>ログイン - 勤怠管理システム</title>
+<!-- ブラウザタブに表示されるタイトルを設定。
+-->
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<!-- CSS スタイルシートのリンクを設定。
+-->
+<!-- th:href を使うことで Thymeleaf でパスを解決する。 -->
+</head>
+<body>
+<div class="container">
+<!-- 中央寄せのコンテンツを囲むための div。
+-->
+<h1>勤怠管理システム</h1>
+<!-- ページのメインタイトル。 -->
+<h2>ログイン</h2>
+<!-- ページのサブタイトル。 -->
+<form th:action="@{/login}" method="post">
+<!-- ログイン処理を行うフォーム。 -->
+<!-- th:action により /login へ POST 送信する。 -->
+<div th:if="${param.error}" class="error-message">
+	
+	<!-- ログイン失敗時に表示されるエラーメッセージ用の div。 -->
+	ユーザー名またはパスワードが不正です。
+	
+</div>
+
+<div th:if="${param.logout}" class="success-message">
+	
+	<!-- ログアウト後に表示される成功メッセージ用の div。-->
+	ログアウトしました。
+</div>
+
+<p>
+-->
+<label for="username">ユーザー名:</label>
+<!-- ユーザー名入力欄のラベル。 -->
+
+<input type="text" id="username"name="username" required>
+<!-- ユーザー名入力フィールド。必須項目。-->
+
+
+</p>
+<p>
+<label for="password">パスワード:</label>
+<!-- パスワード入力欄のラベル。 -->
+<input type="password" id="password"name="password" required>
+<!-- パスワード入力フィールド。必須項目。-->
+</p>
+<div class="button-group">
+<!-- ボタンをグループ化するための div。
+-->
+<button type="submit">ログイン</button>
+<!-- ログイン送信ボタン。 -->
+</div>
+</form>
+</div>
+</body>
+</html>

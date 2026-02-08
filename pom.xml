@@ -1,0 +1,131 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!-- Maven POM のルート要素。プロジェクト構成の開始を示す。 -->
+<modelVersion>4.0.0</modelVersion>
+<!-- POM ファイルのバージョンを指定。基本的に 4.0.0 固定で使用する。 -->
+<parent>
+<!-- Spring Boot が推奨する親プロジェクトを指定する設定ブロック。 -->
+<groupId>org.springframework.boot</groupId>
+<!-- 親プロジェクトの groupId。Spring Boot 公式が提供。 -->
+<artifactId>spring-boot-starter-parent</artifactId>
+<!-- 親プロジェクトの artifactId。Spring Boot プロジェクト用のベース。 -->
+<version>3.2.0</version>
+<!-- 親プロジェクトのバージョン。ここで Spring Boot 全体のバージョンを管理する。 -->
+<relativePath/>
+</parent>
+<!-- 親 POM をローカル参照する場合のパス設定。空にすると Maven Central から取得。 -->
+<groupId>com.example</groupId>
+<!-- このプロジェクトのグループ ID。通常は組織やドメイン名を逆順にして使う。 -->
+<artifactId>attendance-system-complete</artifactId>
+<!-- このプロジェクト固有の名前を指定。jar ファイルの名前にも利用される。 -->
+<version>0.0.1-SNAPSHOT</version>
+<!-- このプロジェクトのバージョン番号を指定。開発中は-SNAPSHOT をつけるのが慣例。 -->
+<name>attendance-system-complete</name>
+<!-- プロジェクトの表示名。ドキュメントなどに使われる。 -->
+<description>Complete Attendance System with Spring Boot and Thymeleaf</description>
+<!-- プロジェクトの簡易説明。 -->
+<properties>
+<!-- Maven ビルド時のプロパティ定義。 -->
+<java.version>17</java.version>
+<!-- 使用する Java バージョンを指定。このプロジェクトは Java17 でビルド。 -->
+<lombok.version>1.18.30</lombok.version>
+<!-- Lombok ライブラリのバージョン指定。 -->
+</properties>
+<dependencies>
+<!-- プロジェクトで利用する依存ライブラリ群を定義する。 -->
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+<!-- Spring Boot の Web アプリケーション開発用スターター。MVC 構成などを提供する。 -->
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+<!-- Spring Data JPA のスターター。RDB 連携や Repository を簡単にする。 -->
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+<!-- Spring Security のスターター。認証・認可の機能を簡単に導入できる。 -->
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-thymeleaf</artifactId>
+</dependency>
+<!-- Spring Boot の Thymeleaf スターター。テンプレートエンジンを簡単に統合する。 -->
+<dependency>
+<groupId>org.thymeleaf.extras</groupId>
+<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+</dependency>
+<!-- Spring Security と Thymeleaf を統合するための拡張ライブラリ。 -->
+<dependency>
+<groupId>org.postgresql</groupId>
+<artifactId>postgresql</artifactId>
+<scope>runtime</scope>
+</dependency>
+<!-- PostgreSQL JDBC ドライバ。DB 接続用。runtime スコープで実行時に使用される。 -->
+<dependency>
+<groupId>com.h2database</groupId>
+<artifactId>h2</artifactId>
+<scope>runtime</scope>
+</dependency>
+<!-- H2 データベース。テスト用などインメモリ DB として利用可能。 -->
+<dependency>
+<groupId>org.projectlombok</groupId>
+<artifactId>lombok</artifactId>
+<version>${lombok.version}</version>
+<optional>true</optional>
+</dependency>
+<!-- Lombok を導入。Java のボイラープレートコード削減に役立つ。 -->
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-test</artifactId>
+<scope>test</scope>
+</dependency>
+<!-- Spring Boot アプリの単体テストや統合テストのための依存。 -->
+<dependency>
+<groupId>org.springframework.security</groupId>
+<artifactId>spring-security-test</artifactId>
+<scope>test</scope>
+</dependency>
+<!-- Spring Security 用のテスト支援ライブラリ。 -->
+</dependencies>
+<build>
+<!-- Maven ビルドに関する設定を定義するブロック。 -->
+<plugins>
+<!-- ビルド時に使う Maven プラグイン群を定義。 -->
+<plugin>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-maven-plugin</artifactId>
+<configuration>
+<!-- ビルド時に特定の依存ライブラリを除外する設定。 -->
+<excludes>
+<exclude>
+<groupId>org.projectlombok</groupId>
+<artifactId>lombok</artifactId>
+</exclude>
+</excludes>
+</configuration>
+</plugin>
+<!-- Spring Boot アプリを実行可能 Jar 化する Maven プラグイン。 -->
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-compiler-plugin</artifactId>
+<version>3.12.1</version>
+<configuration>
+<release>17</release>
+<!-- Java コンパイルのターゲットバージョンを指定。Java17 でコンパイルする設定。 -->
+<annotationProcessorPaths>
+<path>
+<groupId>org.projectlombok</groupId>
+<artifactId>lombok</artifactId>
+<version>${lombok.version}</version>
+</path>
+</annotationProcessorPaths>
+<!-- Lombok のアノテーション処理を有効にする設定。 -->
+</configuration>
+</plugin>
+</plugins>
+</build>
+</project>
