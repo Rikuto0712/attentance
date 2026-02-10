@@ -7,10 +7,9 @@ import java.time.LocalTime;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
-import org.springframework.data.annotation.Id;
 
 import com.example.attendance.User;
 
@@ -57,6 +56,14 @@ public class OvertimeRequest {
 
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public LocalDate getOvertimeDate() {
+		return overtimeDate;
+	}
+
+	public void setOvertimeDate(LocalDate overtimeDate) {
+		this.overtimeDate = overtimeDate;
 	}
 
 }

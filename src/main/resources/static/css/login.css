@@ -1,0 +1,89 @@
+/* ===== ログイン画面専用 ===== */
+body.login-page {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+  background: #d7d5d5;
+}
+
+/* ヘッダー */
+.login-page .app-header {
+  background: #cfe3e2;
+  border: 2px solid #666;
+  border-bottom: none;
+  padding: 48px 16px;
+  text-align: center;
+}
+
+.login-page .app-title {
+  margin: 0;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+/* メイン */
+.login-page .app-main {
+  border: 2px solid #666;
+  border-top: none;
+  min-height: calc(100vh - 140px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ログイン枠 */
+.login-page .login-panel {
+  background: #bfbfbf;
+  padding: 50px 30px;
+  width: 600px;
+  text-align: center;
+}
+
+/* メッセージ */
+.login-page .msg {
+  margin-bottom: 16px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.login-page .msg-error {
+  border: 1px solid #c00;
+}
+
+.login-page .msg-success {
+  border: 1px solid #090;
+}
+
+/* フォーム */
+.login-page .field {
+  margin: 30px 0;
+}
+
+.login-page label {
+  display: block;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.login-page input {
+  width: 300px;
+  height: 36px;
+  border: 1px solid #666;
+  font-size: 16px;
+}
+
+/* ボタン */
+.login-page .login-button {
+  width: 520px;
+  height: 70px;
+  background: #00b3ad;
+  color: #fff;
+  font-size: 28px;
+  font-weight: bold;
+  border: 1px solid #444;
+  cursor: pointer;
+}
+
+.login-page .login-button:hover {
+  opacity: 0.9;
+}

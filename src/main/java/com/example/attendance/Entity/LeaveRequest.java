@@ -6,10 +6,9 @@ import java.time.LocalDateTime;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
-import org.springframework.data.annotation.Id;
 
 @Entity
 public class LeaveRequest {
@@ -18,25 +17,29 @@ public class LeaveRequest {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne
-	private User user;
-
-	private LocalDate leaveDate;
-
-	private String leaveType; // 全休 / 午前休 / 午後休
-
+	// 例：有給の項目（あなたの設計に合わせてOK）
+	private LocalDate startDate;
+	private LocalDate endDate;
+	private String leaveType;
 	private String reason;
 
 	private String status;
-
 	private LocalDateTime createdAt;
 
-	// getter setter
-	public User getUser() {
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private com.example.attendance.User user;
+
+	// --- getter/setter（最低限） ---
+	public Long getId() {
+		return id;
+	}
+
+	public com.example.attendance.User getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(com.example.attendance.User user) {
 		this.user = user;
 	}
 
@@ -55,5 +58,4 @@ public class LeaveRequest {
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
-
 }
